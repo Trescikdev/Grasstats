@@ -3,6 +3,12 @@
 {% block content %}
 <h1 data-i18n="nav_teams">Teams</h1>
 
+<hr>
+
+{% if not teams %}
+    <p>There are currently no teams recorded in the system.</p>
+{% endif %}
+
 {% for team in teams %}
     <div class="border rounded fac_items">
         <div class="row">

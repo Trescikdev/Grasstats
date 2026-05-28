@@ -11,6 +11,8 @@
         </div>
     </div>
 
+    <hr>
+
     <div class="modal fade" id="create_new_team" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -70,6 +72,9 @@
         </div>
     </div>
     </div>
+    {% if not teams %}
+        <p>You are currently not a part of any teams.</p>
+    {% endif %}
     {% for team in teams %}
     <div class="border rounded fac_items">
         <a href="{{url_for('teams.team_detail', t_id=team.team_id)}}">{{ team.name }}</a>

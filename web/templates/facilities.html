@@ -13,6 +13,8 @@
     </div>
 </div>
 
+<hr>
+
 <div class="modal fade" id="create_new_facility" tabindex="-1" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -72,6 +74,9 @@
 </div>
 </div>
 
+{% if not facilities %}
+    <p>There are currently no facilities recorded in the system.</p>
+{% endif %}
 
 <ul class="no-dots">
     {% for fac in facilities %}
