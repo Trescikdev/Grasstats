@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ match.home_team_name }}</h1>
+<h1>vs</h1>
+<h1>{{ match.away_team_name }}</h1>
+
+{% if today_date == m_date %}
+    <a href="{{url_for('matches.match_in_progress', m_id=match.match_id)}}" class="btn btn-primary" data-i18n="start">Start</a>
+{% endif %}
+<hr>
+<button class="btn btn-primary" data-i18n="edit">Edit</button>
+
+{% endblock %}

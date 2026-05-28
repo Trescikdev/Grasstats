@@ -1,0 +1,16 @@
+{% extends 'base.html '%}
+
+{% block content %}
+<h1 data-i18n="nav_teams">Teams</h1>
+
+{% for team in teams %}
+    <div class="border rounded fac_items">
+        <div class="row">
+            <div class="col-md-2">
+                <a  href="{{url_for('teams.team_detail', t_id=team.team_id)}}"
+                    class="team_name_link">{{ team.name }}</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

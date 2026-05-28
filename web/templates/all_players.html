@@ -1,0 +1,19 @@
+{% extends 'base.html '%}
+
+{% block content %}
+<h1 data-i18n="nav_players">Players</h1>
+
+{% for player in players %}
+    <div class="border rounded fac_items">
+        <div class="row">
+            <div class="col-md-1 ">
+                <p>#{{ player.jersey_number or 'U' }}</p>
+            </div>
+            <div class="col-md-2">
+                <a  href="{{url_for('profile.profile', m_id=player.member_id)}}"
+                    class="player_name_link">{{ player.name }}</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

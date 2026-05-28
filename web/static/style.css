@@ -1,0 +1,327 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-container h2 {
+    margin-top: 0;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container.auth{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666666;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    font-size: 16px;
+}
+
+.input-group input:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #004494;
+}
+
+.btn-danger {
+    background-color: darkred;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #dddddd;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Custom tweaks to overlay on Bootstrap */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.navbar-brand {
+    letter-spacing: -0.5px;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+}
+
+.no-dots{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.img-fluid.profile-thumbnail {
+    width: 275px;
+    height: 275px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.fac_items{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.form-control-color{
+    max-width: 100px;
+}
+
+.new_match_title{
+    text-align: center;
+}
+
+.lang-toggle {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.lang-flag {
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 2px;
+    cursor: pointer;
+    line-height: 0;
+    opacity: 0.45;
+    transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.lang-flag svg {
+    width: 36px;
+    height: 24px;
+    display: block;
+    border: 1px solid #ccc;
+}
+
+.lang-flag:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.lang-flag.active {
+    opacity: 1;
+    border-color: #0d6efd;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.match-header{
+    padding: 10px;
+}
+
+.match-header .vs-badge {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.mini-cal {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    table-layout: fixed;
+}
+
+.mini-cal thead th {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-align: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #dee2e6;
+    text-transform: uppercase;
+}
+
+.mini-cal tbody td {
+    text-align: center;
+    padding: 0;
+    height: 30px;
+}
+
+.mini-cal .day-btn {
+    width: 100%;
+    height: 28px;
+    padding: 0;
+    border: 1px solid transparent;
+    background: #f8f9fa;
+    color: #212529;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.mini-cal .day-btn:hover {
+    background: #e9ecef;
+    border-color: #ced4da;
+}
+
+.mini-cal .day-btn.selected {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+.card-body{
+    padding: 0%;
+}
+
+/* Container for the switch */
+.form-switch-container {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+/* Hide the actual checkbox */
+.switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The Track */
+.switch-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+/* The Sliding Handle */
+.switch-button {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Logic when Checkbox is Checked */
+.switch-input:checked + .switch-label {
+    background-color: #0d6efd; /* Bootstrap primary color */
+}
+
+.switch-input:checked + .switch-label .switch-button {
+    transform: translateX(24px);
+}
+
+/* Focus state for accessibility */
+.switch-input:focus + .switch-label {
+    box-shadow: 0 0 1px #0d6efd;
+}
+
+/* Style the navigation arrows specifically */
+.nav-cal {
+    width: 32px;
+    height: 32px;
+    padding: 0 !important; /* Removes Bootstrap's default horizontal padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;    /* Slightly rounded corners, or 50% for circles */
+    line-height: 1;
+    font-size: 1.2rem;     /* Makes the arrow symbols look better */
+    flex-shrink: 0;        /* Prevents the header from squishing them */
+}
+
+/* Optional: Subtle hover effect */
+.nav-cal:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.player_name_link{
+    text-decoration: none;
+    font-size: larger;
+}
+
+.match_title{
+    text-align: center;
+}

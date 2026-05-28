@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container auth">
+    <h2 data-i18n="auth_welcome_back">Welcome Back</h2>
+    <form action="{{ url_for('auth.login') }}" method="POST">
+        <div class="input-group">
+            <label for="login_identity" data-i18n="auth_username_or_email">Username or Email</label>
+            <input type="text" id="login_identity" name="login_identity" required>
+        </div>
+        <div class="input-group">
+            <label for="password" data-i18n="auth_password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn" data-i18n="auth_sign_in_btn">Sign In</button>
+    </form>
+
+    <p class="form-footer">
+        <span data-i18n="auth_new_here">New here?</span> <a href="{{ url_for('auth.register') }}" data-i18n="auth_sign_up_here">Sign up here</a>
+    </p>
+</div>
+{% endblock %}

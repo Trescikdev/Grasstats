@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <h2 class="fw-light"><span data-i18n="home_greeting">Hello, </span><strong>{% if session['username'] %}{{ session['username'] }}{% else %}<span data-i18n="home_guest">Guest</span>{% endif %}</strong>!</h2>
+        <p class="text-muted" data-i18n="home_subtitle">Welcome to your sports statistics command center.</p>
+    </div>
+</div>
+
+{% if session['username'] %}
+    <div class="row g-3 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title" data-i18n="home_card_live">Live Scores</h5>
+                    <p class="card-text text-muted small" data-i18n="home_card_live_desc">Check real-time data for ongoing matches.</p>
+                    <button class="btn btn-primary w-100" data-i18n="home_card_live_btn">View Live</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title" data-i18n="home_card_players">Player Database</h5>
+                    <p class="card-text text-muted small" data-i18n="home_card_players_desc">Search and analyze individual player performance.</p>
+                    <button class="btn btn-dark w-100" data-i18n="home_card_players_btn">Browse Players</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title" data-i18n="home_card_compare">Compare Teams</h5>
+                    <p class="card-text text-muted small" data-i18n="home_card_compare_desc">Head-to-head statistics for upcoming games.</p>
+                    <button class="btn btn-outline-dark w-100" data-i18n="home_card_compare_btn">Start Comparison</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 bg-white border rounded-3 shadow-sm text-center">
+                <h4 class="text-muted" data-i18n="home_no_fav">No Favorite Teams Added</h4>
+                <p data-i18n="home_no_fav_desc">Follow a team to see their quick stats right here on your dashboard.</p>
+                <button class="btn btn-link" data-i18n="home_find_team">Find a team to follow →</button>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <div class="p-5 mb-4 bg-white rounded-3 border shadow-sm">
+        <div class="container-fluid py-5 text-center">
+            <h1 class="display-5 fw-bold" data-i18n="home_hero_title">Deep Dive into Sports Data</h1>
+            <p class="fs-4" data-i18n="home_hero_subtitle">Professional grade statistics for enthusiasts and analysts alike.</p>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg px-4 mt-3" data-i18n="home_hero_btn">Create Free Account</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

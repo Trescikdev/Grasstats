@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-9">
+        <h1>Facilities</h1>
+    </div>
+    <div class="col-md-3">
+        {% if u_id %}
+        <button type="button" class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#create_new_facility" data-i18n="fac_create_new">
+        Create New Facility
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal fade" id="create_new_facility" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+    <div class="modal-header">
+        <h5 class="modal-title" data-i18n="fac_create_new">Create New Facility</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body">
+        <form action="{{ url_for('facilities.facilities') }}" method="POST">
+            <ul class="no-dots">
+                <li>
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control" value="{{ '' }}" placeholder="Name" data-i18n-placeholder="ph_name">
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group mb-3">
+                        <input type="text" name="street" class="form-control" value="{{ '' }}" placeholder="Street & street No." data-i18n-placeholder="ph_street">
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group mb-3">
+                        <input type="text" name="city" class="form-control" value="{{ '' }}" placeholder="City" data-i18n-placeholder="ph_city">
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="floortype" data-i18n="fac_floor_type">Floor Type</label>
+                        </div>
+                        <select class="form-select" name="floortype" id="floortype">
+                            <option selected disabled data-i18n="choose">Choose...</option>
+                            <option value="teraflex">Teraflex</option>
+                            <option value="wood" data-i18n="wood">Wood</option>
+                            <option value="rubber" data-i18n="rubber">Rubber</option>
+                            <option value="other" data-i18n="other">Other</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="cancel">Cancel</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit" href="{{ url_for('facilities.facilities') }}" class="btn btn-success" data-i18n="create">Create</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+
+<ul class="no-dots">
+    {% for fac in facilities %}
+    <div class="border rounded fac_items">
+        <li>
+            <h2>{{ fac.name }}</h2>
+            <h4>{{ fac.street}}</h4>
+            <h5><span data-i18n="fac_floor_type_label">Floor type:</span> {{ fac.floor_type }}</h5>
+            {% if fac.owner_id == u_id %}
+                <div class="row">
+                    <div class="col-lg-1">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ fac.facility_id }}" data-i18n="edit">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="{{ url_for('facilities.delete_facility', f_id=fac.facility_id) }}"
+                            class="btn btn-danger"
+                            data-i18n="remove"
+                            onclick="return confirm(window.I18n ? window.I18n.t('confirm_delete') : 'Are you sure?')">Remove</a>
+                    </div>
+                    </div>
+
+                    <div class="modal fade" id="editModal-{{ fac.facility_id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="{{ url_for('facilities.edit_facility', f_id=fac.facility_id) }}" method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" data-i18n="fac_edit_title" data-name="{{ fac.name }}">Edit {{ fac.name }}</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" name="name" class="form-control mb-2" value="{{ fac.name }}">
+                                        <input type="text" name="street" class="form-control mb-2" value="{{ fac.street }}">
+                                        <input type="text" name="city" class="form-control mb-2" value="{{ fac.city }}">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="floortype" data-i18n="fac_floor_type">Floor Type</label>
+                                            </div>
+                                            <select class="form-select" name="floortype" id="floortype">
+                                                <option selected disabled data-i18n="choose">Choose...</option>
+                                                <option value="teraflex">Teraflex</option>
+                                                <option value="wood" data-i18n="wood">Wood</option>
+                                                <option value="rubber" data-i18n="rubber">Rubber</option>
+                                                <option value="other" data-i18n="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="cancel">Cancel</button>
+                                        <button type="submit" class="btn btn-success" data-i18n="save_changes">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
+        </li>
+    </div>
+    {% endfor %}
+</ul>
+
+{% endblock %}

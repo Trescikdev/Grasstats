@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container auth">
+    <h2 data-i18n="auth_create_account">Create an Account</h2>
+    <form action="{{ url_for('auth.register') }}" method="POST">
+        <div class="input-group">
+            <label for="username" data-i18n="auth_username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+            <label for="email" data-i18n="auth_email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+            <label for="password" data-i18n="auth_password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn" data-i18n="auth_sign_up_btn">Sign Up</button>
+    </form>
+
+    <p class="form-footer">
+        <span data-i18n="auth_have_account">Already have an account?</span> <a href="{{ url_for('auth.login') }}" data-i18n="auth_sign_in_here">Sign in here</a>
+    </p>
+</div>
+{% endblock %}

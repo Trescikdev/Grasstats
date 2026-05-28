@@ -1,0 +1,78 @@
+{% extends 'profile.html' %}
+{% block info %}
+<form action="{{ url_for('profile.profile_edit') }}" method="POST" enctype="multipart/form-data">
+    <li>
+        <div class="input-group mb-3">
+            <input type="text" name="full_name" class="form-control" value="{{ user.full_name or '' }}" placeholder="Full Name" data-i18n-placeholder="ph_full_name">
+        </div>
+    </li>
+    <li>
+        <div class="input-group mb-3">
+            <input type="text" name="nickname" class="form-control" value="{{ user.nickname or '' }}" placeholder="Nickname" data-i18n-placeholder="ph_nickname">
+        </div>
+    </li>
+    <li>
+        <div class="input-group mb-3">
+            <input name="dob" class="form-control" type="date" value="{{ user.date_of_birth or '' }}" placeholder="Date of Birth" data-i18n-placeholder="ph_dob"/>
+        </div>
+    </li>
+    <li>
+        <div class="input-group mb-3">
+            <input type="text" name="role" class="form-control" value="{{ user.role or '' }}" placeholder="Role" data-i18n-placeholder="ph_role">
+        </div>
+    </li>
+    <li>
+        <div class="input-group mb-3">
+            <input type="number" name="jersey" class="form-control" value="{{ player.jersey_number or '' }}" placeholder="#">
+        </div>
+    </li>
+    <li>
+        <select class="form-select" name="position" id="position">
+            <option selected>{{ home }}</option>
+            <option selected disabled data-i18n="choose">Choose...</option>
+            <option value="D" data-i18n="defense">Defense</option>
+            <option value="C" data-i18n="center">Center</option>
+            <option value="F" data-i18n="attack">Attacker</option>
+            <option value="GK" data-i18n="goalkeeper">Goalkeeper</option>
+        </select>
+    </li>
+    <br>
+    <li>
+        <div class="form-check">
+            <input class="form-check-input" name="checkboxlefthanded" type="checkbox" value="{{player.left_handed or ''}}" id="checkboxlefthanded">
+            <label class="form-check-label" for="checkboxlefthanded" data-i18n="left_handed">
+                Left Handed (right hand lower)
+            </label>
+        </div>
+    </li>
+    <br>
+    <li>
+        <div class="input-group mb-3">
+            <input type="number" name="height" class="form-control" value="{{ player.height_cm or '' }}" placeholder="Height ({{ player.height_cm }})">
+        </div>
+    </li>
+    <li>
+        <div class="input-group mb-3">
+            <input type="number" name="weight" class="form-control" value="{{ player.weight_kg or '' }} " placeholder="Weight ({{ player.weight_kg }})">
+        </div>
+    </li>
+    <li>
+        <div class="input-group mb-3">
+            <input type="text" name="szfb_link" class="form-control" value="{{ player.szfb_link or '' }}" placeholder="SZFB link{{ player.szfb_link }}">
+        </div>
+    </li>
+
+
+    <div class="col-lg-1">
+        <button type="submit" class="btn btn-primary" data-i18n="save">Save</button>
+    </div>
+
+{% endblock %}
+
+{% block new_row %}
+    <div class="row">
+        <div class="col-lg-1">
+            <input type="file" name="profile_pic" accept="image/*">
+        </div>
+    </div>
+</form> {% endblock %}

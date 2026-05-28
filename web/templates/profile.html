@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row align-items-start">
+    <div class="col-lg-3">
+        <img src="{{ url_for('static', filename='images/' + (user.photo if user.photo else 'default-user-icon.jpg')) }}" class="img-fluid profile-thumbnail" alt="profile-pic">
+    </div>
+    <div class="col-lg-7">
+        <ul class="no-dots">
+            {% block info %}
+            <li>
+                {% if user.full_name %}
+                    <h1>{{ user.full_name }}</h1>
+                {% else %}
+                    <h1 data-i18n="anonymous">Anonymous</h1>
+                {% endif %}
+            </li>
+            <li>
+                <p>{{ user.nickname if user.nickname else '' }}</p>
+            </li>
+            <li>
+                <h4>{{ user.email }}</h4>
+            </li>
+            <li>
+                <h4>{{ user.date_of_birth if user.date_of_birth else '' }}</h4>
+            </li>
+            <li>
+                <h4>{{ user.role if user.role else '' }}</h4>
+            </li>
+            {% if player %}
+                {% for pl_info in player %}
+                <li>
+                    <h4>{{ pl_info if pl_info else ''}}</h4>
+                </li>
+                {% endfor %}
+            {% endif %}
+            {% endblock %}
+        </ul>
+    </div>
+</div>
+{% block new_row %}
+{% endblock %}
+{% endblock %}
