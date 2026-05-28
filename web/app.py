@@ -1,11 +1,13 @@
 from flask import Flask, render_template
-from flask_mail import Mail, Message
+from flask_mail import Mail
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here' # TODO CHANGE THIS LATER
 
-UPLOAD_FOLDER = 'static/images'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = 'static/images'
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'images')
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
