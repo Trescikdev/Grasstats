@@ -77,112 +77,119 @@
     {% endif %}
     {% for team in teams %}
     <div class="border rounded fac_items">
-        <a href="{{url_for('teams.team_detail', t_id=team.team_id)}}">{{ team.name }}</a>
         <div class="row">
             <div class="col-md-3">
-                <h5>{{ team.facility_name }}</h5>
+                <img src="{{ url_for('static', filename='images/' + (team.logo if team.logo else 'default-user-icon.jpg')) }}" class="img-fluid profile-thumbnail" alt="profile-pic">
             </div>
-            {% if team.next_match_id %}
-            <div class="col-md-3">
-                <a href="{{ url_for('matches.match_detail', m_id=team.next_match_id) }}">
-                    Upcoming match: {{ team.next_match_date }} {{ team.next_opponent_name }}</a>
-                <p>@{{ team.next_match_facility_name }}</p>
-            </div>
-            {% else %}
-            <div class="col-md-3">
-                <p data-i18n="no_upcoming_matches">No upcoming matches.</p>
-            </div>
-            {% endif %}
-        </div>
-        <div class="row">
-            {% if u_id == team.contact_person or u_id == team.contact_person_2 %}
-            <div class="col-md-3">
-                <form action="{{ url_for('invites.invite_player') }}" method="POST" class="row g-2">
-                    <input type="hidden" name="team_id" value="{{ team.team_id }}">
-                    <div class="col-auto">
-                        <input type="text" name="username" class="form-control form-control-sm" placeholder="Search username..." data-i18n-placeholder="team_search_user" required>
+            <div class="col-md-9">
+                <a href="{{url_for('teams.team_detail', t_id=team.team_id)}}">{{ team.name }}</a>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>{{ team.facility_name }}</h5>
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-sm btn-outline-success" data-i18n="team_invite">Invite</button>
+                    {% if team.next_match_id %}
+                    <div class="col-md-3">
+                        <a href="{{ url_for('matches.match_detail', m_id=team.next_match_id) }}">
+                            Upcoming match: {{ team.next_match_date }} {{ team.next_opponent_name }}</a>
+                        <p>@{{ team.next_match_facility_name }}</p>
                     </div>
-                </form>    
-            </div>
-            {% endif %}
-            <div class="col-md-3">
-                {% if team.last_match_id %}
-                <a href="{{ url_for('matches.match_detail', m_id=team.last_match_id) }}">
-                    Last match: {{ team.last_match_date }} vs {{ team.last_opponent_name }}</a>
-                <p>@{{ team.last_match_facility_name }}</p>
-                {% endif %}
-            </div>
-        </div>
-        {% if u_id == team.contact_person or u_id == team.contact_person_2 %}
-        <div class="row">
-            <div class="col-lg-2">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ team.team_id }}" data-i18n="edit_metadata">
-                    Edit metadata
-                </button>
-            </div>
-            <div class="col-lg-1">
-                <a href="{{ url_for('teams.delete_team', t_id=team.team_id) }}"
-                    class="btn btn-danger"
-                    data-i18n="remove"
-                    onclick="return confirm(window.I18n ? window.I18n.t('confirm_delete') : 'Are you sure?')">Remove</a>
-            </div>
-            <div class="col-lg-1 ms-auto">
-                <a type="button" class="btn btn-primary" href="{{ url_for('matches.new_match', t_id=team.team_id) }}" data-i18n="team_new_match">new match</a>
-            </div>
-        </div>
-
-            <div class="modal fade" id="editModal-{{ team.team_id }}" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="{{ url_for('teams.edit_team', t_id=team.team_id) }}" method="POST">
-                            <div class="modal-header">
-                                <h5 class="modal-title" data-i18n="team_edit_title" data-name="{{ team.name }}">Edit {{ team.name }}</h5>
+                    {% else %}
+                    <div class="col-md-3">
+                        <p data-i18n="no_upcoming_matches">No upcoming matches.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    {% if u_id == team.contact_person or u_id == team.contact_person_2 %}
+                    <div class="col-md-3">
+                        <form action="{{ url_for('invites.invite_player') }}" method="POST" class="row g-2">
+                            <input type="hidden" name="team_id" value="{{ team.team_id }}">
+                            <div class="col-auto">
+                                <input type="text" name="username" class="form-control form-control-sm" placeholder="Search username..." data-i18n-placeholder="team_search_user" required>
                             </div>
-                            <div class="modal-body">
-                                <ul class="no-dots">
-                                    <li>
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="name" class="form-control" value="{{ '' }}" placeholder="{{team.name}}">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="input-group mb-3">
-                                            <input type="file" name="logo" class="form-control" value="{{ '' }}" accept="image/*">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="input-group mb-3">
-                                            <p for="exampleColorInput" class="form-label" data-i18n="team_color_picker">Color picker</p>
-                                            <input type="color" name="color" class="form-control form-control-color" value="{{ '#000000' }}">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="facility" data-i18n="team_home_facility">Home Facility</label>
-                                            </div>
-                                            <select class="form-select" name="facility" id="facility">
-                                                <option selected disabled data-i18n="choose">Choose...</option>
-                                                {% for f in facs %}
-                                                    <option value="{{f.facility_id}}">{{f.name}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </li>
-                                </ul>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-sm btn-outline-success" data-i18n="team_invite">Invite</button>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="cancel">Cancel</button>
-                                <button type="submit" class="btn btn-success" data-i18n="save_changes">Save Changes</button>
-                            </div>
-                        </form>
+                        </form>    
+                    </div>
+                    {% endif %}
+                    <div class="col-md-3">
+                        {% if team.last_match_id %}
+                        <a href="{{ url_for('matches.match_detail', m_id=team.last_match_id) }}">
+                            Last match: {{ team.last_match_date }} vs {{ team.last_opponent_name }}</a>
+                        <p>@{{ team.last_match_facility_name }}</p>
+                        {% endif %}
                     </div>
                 </div>
+                {% if u_id == team.contact_person or u_id == team.contact_person_2 %}
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ team.team_id }}" data-i18n="edit_metadata">
+                            Edit metadata
+                        </button>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="{{ url_for('teams.delete_team', t_id=team.team_id) }}"
+                            class="btn btn-danger"
+                            data-i18n="remove"
+                            onclick="return confirm(window.I18n ? window.I18n.t('confirm_delete') : 'Are you sure?')">Remove</a>
+                    </div>
+                    <div class="col-lg-1 ms-auto">
+                        <a type="button" class="btn btn-primary" href="{{ url_for('matches.new_match', t_id=team.team_id) }}" data-i18n="team_new_match">new match</a>
+                    </div>
+                </div>
+        
+                    <div class="modal fade" id="editModal-{{ team.team_id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="{{ url_for('teams.edit_team', t_id=team.team_id) }}" method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" data-i18n="team_edit_title" data-name="{{ team.name }}">Edit {{ team.name }}</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="no-dots">
+                                            <li>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="name" class="form-control" value="{{ '' }}" placeholder="{{team.name}}">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="input-group mb-3">
+                                                    <input type="file" name="logo" class="form-control" value="{{ '' }}" accept="image/*">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="input-group mb-3">
+                                                    <p for="exampleColorInput" class="form-label" data-i18n="team_color_picker">Color picker</p>
+                                                    <input type="color" name="color" class="form-control form-control-color" value="{{ '#000000' }}">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <label class="input-group-text" for="facility" data-i18n="team_home_facility">Home Facility</label>
+                                                    </div>
+                                                    <select class="form-select" name="facility" id="facility">
+                                                        <option selected disabled data-i18n="choose">Choose...</option>
+                                                        {% for f in facs %}
+                                                            <option value="{{f.facility_id}}">{{f.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="cancel">Cancel</button>
+                                        <button type="submit" class="btn btn-success" data-i18n="save_changes">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
-    {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
 {% endblock %}

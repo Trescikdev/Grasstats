@@ -87,6 +87,9 @@ def create_team():
         file = request.files.get('logo')
         color = request.form.get('color')
         facility = request.form.get('facility')
+        if not facility:
+            flash('Please select or create a facility to create a team!', 'danger')
+            return redirect(url_for('teams.my_team'))
         logo_filename = None
 
         if file and file.filename != '':
@@ -119,7 +122,7 @@ def delete_team(t_id):
     try:
         cursor = conn.cursor()
         
-        permissions_pass = cursor.execute('SELECT * from teams WHERE team_id = ? AND (contact_person = ? OR contact_person2 = ?)', (t_id, user_id)).fetchone()
+        permissions_pass = cursor.execute('SELECT * from teams WHERE team_id = ? AND (contact_person = ? OR contact_person_2 = ?)', (t_id, user_id, user_id)).fetchone()
         if not permissions_pass:
             flash('You do not have permissions to delete this team')
             return redirect(url_for('teams.my_team'))

@@ -5,8 +5,8 @@ import os
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here' # TODO CHANGE THIS LATER
 
-app.config['UPLOAD_FOLDER'] = 'static/images'
-app.config['UPLOAD_FOLDER'] = os.path.join('static', 'images')
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'images')
+
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
