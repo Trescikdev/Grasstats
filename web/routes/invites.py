@@ -19,7 +19,7 @@ def invite_player():
     try:
         cursor = conn.cursor()
 
-        permission_pass = cursor.execute('SELECT contact_person, contact_person2 FROM teams WHERE team_id = ?', (team_id,)).fetchone()
+        permission_pass = cursor.execute('SELECT contact_person, contact_person_2 FROM teams WHERE team_id = ?', (team_id,)).fetchone()
         if not (permission_pass['contact_person'] == sender_id or permission_pass['contact_person2'] == sender_id):
             flash('You don\'t have permissions to invite a player into this team', 'danger')
             return redirect(url_for('teams.my_team'))
